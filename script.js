@@ -10,7 +10,7 @@ headers.append('GET','PUT','OPTIONS');
 
 
 var movies = fetch("https://www.pgscatalog.org/rest/trait/EFO_0000305?format=json",{
-          mode: 'no-cors',
+          //mode: 'no-cors',
           credentials: 'include',
 method: 'GET',
 headers: headers  //('https://ghibliapi.herokuapp.com/films')
@@ -19,9 +19,9 @@ headers: headers  //('https://ghibliapi.herokuapp.com/films')
   .then(response => {
     return response.json();
     })
-  .then(json => {
-    console.log(json)
-    document.getElementById('root').innerHTML = json
+  .then(data => {
+    console.log(data)
+    document.getElementById('root').innerHTML = data
     })
   .catch((e)=>{
    console.log("error!");
