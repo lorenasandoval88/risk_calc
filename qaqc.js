@@ -40,7 +40,6 @@ function getFile(event, textarea) {
 function placeFileContent(target, file) {
     readFileContent(file).then(content => {
         target.value = content
-        console.log("place", content[1])
     }).catch(error => console.log(error))
 }
 
