@@ -25,6 +25,7 @@ headers: headers  //('https://ghibliapi.herokuapp.com/films')
     })
   .catch((e)=>{
    console.log("error!");
+   document.getElementById('root').innerHTML = "Error!"
     })
 
 
