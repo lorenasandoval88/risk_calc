@@ -7,15 +7,19 @@ runQAQC = function (data) {
     console.log(`runQAQC function ran at ${Date()}`)
   
     // define genomic data
-    fulldt = qaqc.dataTxt.split('\r\n').map(function(ln){
+    var fulldt = qaqc.dataTxt.split('\r\n').map(function(ln){
         return ln.split('\t');
     });
-    // remove meta data
-    dt = fulldt.slice(19)
+    // remove meta data rows 0-19
+    var dt = fulldt.slice(19) // data is defined as dt
     
     //clean up first row
-    cleantext = text.map(x => x.replace(/# /g,""));
+    var cleantext = dt[0].map(x => x.replace(/# /g,""));
     dt[0] = cleantext
+
+    //define header and remove from dt
+    var colnames = dt[0]
+    dt = dt.slice(1)
 
     // display data dimensions
     let h = `<p>Successfully uploaded: table with 
