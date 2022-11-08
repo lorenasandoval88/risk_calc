@@ -60,7 +60,7 @@ qaqc.load = el => {
             h =
                 `
             <pre id="fileInfo">Select file</pre>
-            <input type="file" id="readButton" value={this.state.text} 
+            <input type="file" id="readButton" value={this.state.text}
             onchange="qaqc.openFile(event);getFile(event, 'textbox')">
             <textarea id="textbox"></textarea>
             `
@@ -83,8 +83,8 @@ qaqc.load = el => {
             <input type="text" id="query_input" name="query_input"><br><br>
             <button type="submit">Submit</button><br><br>
             </form>
-            
-            
+
+
             <button id="auth_button" onclick="auth();">Authorize</button>
             <div id="client_initiated"></div>
             <button id="dataset_button" style="display:none;" onclick="listDatasets();">Show datasets</button>

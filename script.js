@@ -12,9 +12,9 @@ headers.append('GET','PUT','OPTIONS');
 var movies = fetch("https://www.pgscatalog.org/rest/trait/EFO_0000305?format=json",{
           //mode: 'no-cors',
           credentials: 'include',
-method: 'GET',
-headers: headers  //('https://ghibliapi.herokuapp.com/films')
-})
+            method: 'GET',
+            headers: headers  //('https://ghibliapi.herokuapp.com/films')
+            })
     
   .then(response => {
     return response.json();
