@@ -10,21 +10,24 @@
   <script src="main.js"></script>
   <script src="risk.js"></script>
 
-  <h2>23andMe Risk Calculator</h2>
+  <h1>23andMe Risk Calculator</h1>
 </head>
-<br>
-<br>
+<br><br>
 <body>
-  <h1>Genomic Data</h1>
+  <h2>Genomic Data</h2>
   <input type="file" id="input-file" 
          onchange = "getFile(event, 'content-target')">
-  <textarea id="content-target" ></textarea>
+  <textarea id="content-target" style="width:100%;height:10em;font-size:small" ></textarea>
   <br>
   <br>
+
+  <!-- end Lorena Code, begin Jonas script------->
+
 <div class="container" id="pgsDiv">
-  <h1>PGS Scores</h1>
-  <input id="inputID" value="PGS000004"> Genome build <input id=build37 type="radio" name="Gbuild" value=37 checked=true> 37 <input id=build38 type="radio" name="Gbuild" value=38> 38 <button id="retrieveButton">retrieve</button> <a href="" id="ftp" target="_blank"> FTP</a>
-  <br><textarea id="entryTextArea" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
+  <h2>PGS Scores</h2>
+  <input id="inputID" value="PGS000004"> Genome build <input id=build37 type="radio" name="Gbuild" value=37 checked=true> 37 
+  <input id=build38 type="radio" name="Gbuild" value=38> 38 <button id="retrieveButton">retrieve</button> <a href="" id="ftp" target="_blank"> FTP</a>
+  <textarea id="entryTextArea" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
 </div>
 
   <script>
@@ -36,12 +39,14 @@
             pgsDiv.appendChild(ta)
             entryTextArea.remove()
             ta.id="entryTextArea"
-            //entryTextArea.value = (await pgs.textArea(inputID.value)).value
+            entryTextArea.value = (await pgs.textArea(inputID.value)).value
         }
 
         inputID.onkeyup=async(ev)=>{
+          
             if(ev.keyCode==13){
                 retrieveButton.click()
+                
             }
             ftp.href=`https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${inputID.value}`
         }

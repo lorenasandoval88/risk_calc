@@ -5,7 +5,6 @@
 data = ''
 dt = ''
 
-
 // read file -------------------------------------
 function getFile(event, text) {
   const input = event.target
