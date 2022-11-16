@@ -1,65 +1,39 @@
 <!DOCTYPE html>
 
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+  </script>
 
-  <script src="https://episphere.github.io/pgs/pgs.js"></script>
   <script src="https://episphere.github.io/epibox/epibox.js"></script>
   <link href="style.css" rel="stylesheet">
-  <script src="main.js"></script>
-  <script src="risk.js"></script>
+
 
   <h1>23andMe Risk Calculator</h1>
 </head>
 <br><br>
+
 <body>
   <h2>Genomic Data</h2>
-  <input type="file" id="input-file" 
-         onchange = "getFile(event, 'content-target')">
-  <textarea id="content-target" style="width:100%;height:10em;font-size:small" ></textarea>
+  <input type="file" id="input-file" onchange="getFile(event, 'content-target')">
+  <textarea id="content-target" style="width:100%;height:10em;font-size:small"></textarea>
   <br>
   <br>
 
-  <!-- end Lorena Code, begin Jonas script------->
+  <!-- PGS scores------->
+  </p>
 
-<div class="container" id="pgsDiv">
-  <h2>PGS Scores</h2>
-  <input id="inputID" value="PGS000004"> Genome build <input id=build37 type="radio" name="Gbuild" value=37 checked=true> 37 
-  <input id=build38 type="radio" name="Gbuild" value=38> 38 <button id="retrieveButton">retrieve</button> <a href="" id="ftp" target="_blank"> FTP</a>
-  <textarea id="entryTextArea" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
-</div>
+  <h2>PGS ID</h2>
+  <input id="inputbox" type="text" value="PGS000004"><button>enter</button>
+  <textarea id="pgsText" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
 
-  <script>
-    (()=>{ // anonymous function
-        
-        retrieveButton.onclick=async()=>{
-            build=[...document.getElementsByName('Gbuild')].filter(ip=>ip.checked)[0].value
-            let ta = await pgs.textArea(inputID.value,build)
-            pgsDiv.appendChild(ta)
-            entryTextArea.remove()
-            ta.id="entryTextArea"
-            entryTextArea.value = (await pgs.textArea(inputID.value)).value
-        }
 
-        inputID.onkeyup=async(ev)=>{
-          
-            if(ev.keyCode==13){
-                retrieveButton.click()
-                
-            }
-            ftp.href=`https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${inputID.value}`
-        }
-        ftp.href=`https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${inputID.value}`;
 
-        [...document.getElementsByName('Gbuild')].forEach(
-            ip=>{ip.onchange=()=>{retrieveButton.click()}}
-        )
-
-        setTimeout(()=>{pgs.ini();retrieveButton.click()},1000)
-        
-    })()
-</script>
+  <script src="https://episphere.github.io/pgs/pgs.js"></script>
+  <script src="main.js"></script>
+  <script src="risk.js"></script>
 
 
 </body>
