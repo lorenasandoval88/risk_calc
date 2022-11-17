@@ -2,6 +2,14 @@
 // use document.getElementById or onchange
 //document.getElementById('input-file')
   //.addEventListener('change', getFile)
+
+window.onload = function() {
+  document.getElementById("input-file")
+  .onclick = function fun() {
+      riskCalc();
+      //validation code to see State field is mandatory.  
+  }
+}  
 data = ''
 dt = ''
 
@@ -17,8 +25,8 @@ function getFile(event, text) {
 function placeFileContent(target, file) {
     readFileContent(file).then(content => {
         target.value = content
-        data = content  // data is defined here
-        dt = cleanData(data)
+        data = content  // full data is defined here
+        dt = formatData(data)
     }).catch(error => console.log(error))
 }
 function readFileContent(file) {
@@ -31,19 +39,18 @@ function readFileContent(file) {
     })
 }
 
-// format data -------------------------------------
-function cleanData(data) {
-data = data.split('\r\n').map(function(ln){
-    return ln.split('\t'); // split text
-});
-data = data.slice(19) // remove meta data
-var cleantext = data[0].map(x => x.replace(/# /g,"")); //clean up first row
-data[0] = cleantext
-return data
-}
+
 
 // calculate risk -------------------------------------
-// function riskCalc(data) {
+function riskCalc() {
+    let risk = 99.8
+    const newH = document.createElement("h2");
+    document.body.appendChild(newH);
+    const newP = document.createElement("p");
+    newP.innerText= risk;
+    document.body.appendChild(newP);
+    console.log("Function for calculating risk ")
+}
 //     //return rsids.diff(breast_cancer_PGS[0])
 //   var indexArr = []
 //   var risk = []

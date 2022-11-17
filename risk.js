@@ -3,7 +3,7 @@
 console.log("risk.js loaded");
 
 // Get data from Rest API--------------
-cleanScores = ((dt) => {
+formatData = ((dt) => {
     dt = dt.split(/[\n\r]+/).filter(r=>r[0]!='#').map(r=>r.split(/\t/));
     return dt
 })
@@ -19,11 +19,12 @@ const getPGSdata = async () => {
             'range': `bytes=${range.join('-')}`,
         }
     })).arrayBuffer(),{to:'string'})
-    //txt= cleanScores(txt).join(',')
+    //txt= formatData(txt).join(',')
+    console.log("PGS file read in!");
+    console.log("----------------");
     return txt;
 };
 
 getPGSdata().then(pgsData => {
-console.log("PGS data", pgsData);
 document.getElementById("pgsText").innerText =pgsData;
 });
