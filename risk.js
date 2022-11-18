@@ -1,49 +1,21 @@
 console.log("risk.js loaded");
 
-// Get PGS data from Rest API--------------
-formatData = ((dataArray) => {
-    dataArray = dataArray.split(/[\n\r]+/).filter(r=>r[0]!='#').map(r=>r.split(/\t/));
-    return dataArray
-})
-const getPGSdata = async () => {
-    const entry = document.getElementById("pgsInput").value
-    console.log("entry",entry)
-    console.log(" Processing pgs scores...");
-    console.log("----------------");
-    const request = await fetch(`https://www.pgscatalog.org/rest/score/${entry}`);
-    const url = (await request.json()).ftp_scoring_file;
-    const range=[0,20000]
-    txt= await pgs.pako.inflate(await (await fetch(url,{
-        headers:{
-            'content-type': 'multipart/byteranges',
-            'range': `bytes=${range.join('-')}`,
-        }
-    })).arrayBuffer(),{to:'string'})
-    console.log("PGS scores loaded!");
-    console.log("----------------");
-    return txt;
-};
-
-
-const getPGSdata2 = async () => {
-    getPGSdata().then(pgsData => {
-document.getElementById("pgsArea").innerText =pgsData;
-risk.pgsData = pgsData
-risk.pgsDataArray = formatData(pgsData)
-console.log("resolved")
-});
+PGS_rsids = ()=>{
+    var arr = []
+    risk.pgsDataArray.forEach((row, index)=> {(arr).push(risk.pgsDataArray[index][0])})
+    return arr.slice(1)
+  }
+  riskCalc = ()=>{
+    console.log("PGS_rsids",PGS_rsids())
+    var indexArr = []
+    var risk = []
 }
-
-getPGSdata2() // should I call this function here to display scores after loading the page?
 
 
 // calculating risk from 23 and me----------------------
 
 //function() {
-    //textareaElement.appendChild(document.createTextNode("Lololo"));//makeHeader()
-    //textareaElement.appendChild(makeRiskOutput());
-    //console.log("add text to resultsDiv")
-    //});
+
 
 //     //return rsids.diff(breast_cancer_PGS[0])
 //   var indexArr = []

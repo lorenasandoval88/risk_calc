@@ -11,15 +11,19 @@
   <link href="style.css" rel="stylesheet">
 
 
-  <h1>23andMe Risk Calculator</h1>
+  <h1>23andMe Risk Calculator</h1><br><br>
+  <p>Polygenic risk scores are calculated by computing the sum of risk alleles corresponding to a phenotype of interest in each individual, 
+    weighted by the effect size estimate of the  GWAS on the phenotype. Read more 
+    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612115/#:~:text=In%20the%20standard%20approach%20%5B5,powerful%20GWAS%20on%20the%20phenotype">here.</a>
+  </p><br><br>
 </head>
-<br><br>
+
 
 <body>
 
   <!-- PGS scores------->
-  <h2>PGS ID</h2>
-  <input id="pgsInput" type="text" value="PGS000004" >
+  <h2>PGS Risk Scores</h2>
+  <input id="pgsInput" type="text" value="PGS000003" >
   <button onclick="getPGSdata(), getPGSdata2()">enter</button>
   <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
   <br><br>
@@ -32,8 +36,7 @@
 
  <!-- Risk result------>
 
-  <div id="riskDiv" ></div>
- <!-------------------->
+
 
 
   <script src="https://episphere.github.io/pgs/pgs.js"></script>

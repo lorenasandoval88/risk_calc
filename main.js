@@ -23,7 +23,7 @@ function placeFileContent(target, file) {
         }
         resDiv.innerHTML = "<h2>Risk results</h2>"
         resDiv.innerHTML += `<p>results: ${genomDataArray.length}</p>`
-        doeverythingelse()
+        riskCalc()
     }).catch(error => console.log(error))
 }
 function readFileContent(file) {
@@ -32,9 +32,39 @@ function readFileContent(file) {
         reader.onload = event => resolve(
             event.target.result)
         reader.onerror = error => reject(error)
-        reader.readAsText(file.slice(0,2011)) //file.slice(0,2011)      
+        reader.readAsText(file.slice(0,4011)) //file.slice(0,2011)      
     })
 }
 
-doeverythingelse = ()=>{console.log("new risk",risk.genomDataArray[3], risk.pgsDataArray[3])}
+// Get PGS data from Rest API--------------
+formatData = ((dataArray) => {
+    dataArray = dataArray.split(/[\n\r]+/).filter(r=>r[0]!='#').map(r=>r.split(/\t/));
+    return dataArray
+})
+const getPGSdata = async () => {
+    const entry = document.getElementById("pgsInput").value
+    const request = await fetch(`https://www.pgscatalog.org/rest/score/${entry}`);
+    const url = (await request.json()).ftp_harmonized_scoring_files.GRCh37.positions;
+    const range=[0,30050]
+    txt= await pgs.pako.inflate(await (await fetch(url,{
+        headers:{
+            'content-type': 'multipart/byteranges',
+            'range': `bytes=${range.join('-')}`,
+        }
+    })).arrayBuffer(),{to:'string'})
+    console.log("getPGSdata function ran!");
+    console.log("----------------");
+    return txt;
+};
 
+
+const getPGSdata2 = async () => {
+    getPGSdata().then(pgsData => {
+document.getElementById("pgsArea").innerText =pgsData;
+risk.pgsData = pgsData
+risk.pgsDataArray = formatData(pgsData)
+console.log("PGS scores displayed in text area")
+});
+}
+
+getPGSdata2() // should I call this function here to display scores at loading the page?
