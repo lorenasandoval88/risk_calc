@@ -1,55 +1,44 @@
-
-
 console.log("risk.js loaded");
 
-// Get data from Rest API--------------
-formatData = ((dt) => {
-    dt = dt.split(/[\n\r]+/).filter(r=>r[0]!='#').map(r=>r.split(/\t/));
-    return dt
+// Get PGS data from Rest API--------------
+formatData = ((dataArray) => {
+    dataArray = dataArray.split(/[\n\r]+/).filter(r=>r[0]!='#').map(r=>r.split(/\t/));
+    return dataArray
 })
 const getPGSdata = async () => {
-    const entry = document.getElementById("inputbox").value
-    console.log(" Processing...");
+    const entry = document.getElementById("pgsInput").value
+    console.log("entry",entry)
+    console.log(" Processing pgs scores...");
+    console.log("----------------");
     const request = await fetch(`https://www.pgscatalog.org/rest/score/${entry}`);
     const url = (await request.json()).ftp_scoring_file;
     const range=[0,20000]
-    txt= pgs.pako.inflate(await (await fetch(url,{
+    txt= await pgs.pako.inflate(await (await fetch(url,{
         headers:{
             'content-type': 'multipart/byteranges',
             'range': `bytes=${range.join('-')}`,
         }
     })).arrayBuffer(),{to:'string'})
-    //txt= formatData(txt).join(',')
-    console.log("PGS file read in!");
+    console.log("PGS scores loaded!");
     console.log("----------------");
     return txt;
 };
 
-getPGSdata().then(pgsData => {
-document.getElementById("pgsText").innerText =pgsData;
+
+const getPGSdata2 = async () => {
+    getPGSdata().then(pgsData => {
+document.getElementById("pgsArea").innerText =pgsData;
+risk.pgsData = pgsData
+risk.pgsDataArray = formatData(pgsData)
+console.log("resolved")
 });
+}
+
+getPGSdata2() // should I call this function here to display scores after loading the page?
 
 
 // calculating risk from 23 and me----------------------
-function makeHeader() {
-    const header = document.createElement("h2");
-    header.append("Risk");
-    return header
-}
-function makeRiskOutput() {
-    let risk = 99.8
-    const para = document.createElement("p");
-    para.append(document.createTextNode(risk));
-    console.log("Function for calculating risk ")
-    return para
-}
 
-//makeheader
-var textareaElement = document.createElement("Div")
-document.body.appendChild(textareaElement);    
-
-document.getElementById("content-target")
-.addEventListener("input", e => console.log('input'))
 //function() {
     //textareaElement.appendChild(document.createTextNode("Lololo"));//makeHeader()
     //textareaElement.appendChild(makeRiskOutput());

@@ -16,22 +16,24 @@
 <br><br>
 
 <body>
-    <!-- Genomic data----->
-  <h2>Genomic Data</h2>
-  <input type="file" id="input-file" onchange="getFile(event, 'content-target')">
-  <textarea id="content-target" class="content-target" style="width:100%;height:10em;font-size:small"></textarea>
-  <br><br>
 
   <!-- PGS scores------->
   <h2>PGS ID</h2>
-  <input id="inputbox" type="text" value="PGS000004"><button>enter</button>
-  <textarea id="pgsText" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
+  <input id="pgsInput" type="text" value="PGS000004" >
+  <button onclick="getPGSdata(), getPGSdata2()">enter</button>
+  <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
+  <br><br>
+  
+  <!-- Genomic data----->
+  <h2>Genomic Data</h2>
+  <input type="file" id="input-file" onchange="getFile(event, 'genomArea')">
+  <textarea id="genomArea" class="content-target" style="width:100%;height:10em;font-size:small"></textarea>
   <br><br>
 
-  <!-- Risk result-----
-  <h2>Risk</h2>
-  <p id="results"></p>-->
+ <!-- Risk result------>
+
   <div id="riskDiv" ></div>
+ <!-------------------->
 
 
   <script src="https://episphere.github.io/pgs/pgs.js"></script>
