@@ -15,15 +15,15 @@ function placeFileContent(target, file) {
         genomDataArray = formatData(genomData) // genomData array defined here
         risk.genomData = genomData
         risk.genomDataArray = genomDataArray
-        console.log(genomDataArray)
+        risk.results = riskCalc()
         if (!document.getElementById("resultDiv")){
             resDiv= document.createElement("div")
             resDiv.id = "resultDiv"
             document.body.appendChild(resDiv)
         }
         resDiv.innerHTML = "<h2>Risk results</h2>"
-        resDiv.innerHTML += `<p>results: ${genomDataArray.length}</p>`
-        riskCalc()
+        //resDiv.innerHTML += `<p>results: ${genomDataArray.length}</p>`
+        resDiv.innerHTML += `<p>results: ${risk.results}</p>`
     }).catch(error => console.log(error))
 }
 function readFileContent(file) {
@@ -32,7 +32,7 @@ function readFileContent(file) {
         reader.onload = event => resolve(
             event.target.result)
         reader.onerror = error => reject(error)
-        reader.readAsText(file.slice(0,4011)) //file.slice(0,2011)      
+        reader.readAsText(file.slice(0,90000011)) //file.slice(0,2011)      
     })
 }
 
@@ -45,7 +45,7 @@ const getPGSdata = async () => {
     const entry = document.getElementById("pgsInput").value
     const request = await fetch(`https://www.pgscatalog.org/rest/score/${entry}`);
     const url = (await request.json()).ftp_harmonized_scoring_files.GRCh37.positions;
-    const range=[0,30050]
+    const range=[0,3005]
     txt= await pgs.pako.inflate(await (await fetch(url,{
         headers:{
             'content-type': 'multipart/byteranges',
@@ -53,17 +53,14 @@ const getPGSdata = async () => {
         }
     })).arrayBuffer(),{to:'string'})
     console.log("getPGSdata function ran!");
-    console.log("----------------");
     return txt;
 };
-
-
 const getPGSdata2 = async () => {
     getPGSdata().then(pgsData => {
 document.getElementById("pgsArea").innerText =pgsData;
 risk.pgsData = pgsData
 risk.pgsDataArray = formatData(pgsData)
-console.log("PGS scores displayed in text area")
+console.log("getPGSdata2:PGS scores displayed in text area")
 });
 }
 
