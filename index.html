@@ -13,10 +13,19 @@
 
 
   <h1>23andMe Risk Calculator</h1><br><br>
-  <p>Polygenic risk scores are calculated by computing the sum of risk alleles corresponding to a phenotype of interest in each individual, 
-    weighted by the effect size estimate of the  GWAS on the phenotype. Read more 
+  <p>A polygenic score (PGS) aggregates the effects of many genetic variants into a single number which predicts genetic predisposition for a phenotype. PGS are typically composed of hundreds-to-millions of genetic variants (usually SNPs) which are combined using a weighted sum of 
+    allele dosages multiplied by their corresponding effect sizes, as estimated from a relevant genome-wide association study (GWAS). Read more 
     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612115/#:~:text=In%20the%20standard%20approach%20%5B5,powerful%20GWAS%20on%20the%20phenotype">here.</a>
-  </p><br><br>
+  </p><br>
+  <b>
+    Application workflow for calculating risk:
+  </b>
+  <li>Retrieves scoring file from 
+    <a href="https://www.pgscatalog.org/rest/">PGS catalog</a>
+  </li>  
+  <li>Retrieves genotype from 23 and me raw data file</li>
+  <li>Matches scoring file variants and calculate scores</li>
+  <br>
 </head>
 
 
@@ -34,6 +43,9 @@
   <input type="file" id="input-file" onchange="getFile(event, 'genomArea')">
   <textarea id="genomArea" class="content-target" style="width:100%;height:10em;font-size:small"></textarea>
   <br><br>
+
+  <p class="info"> All computation takes place in this browser session. No data is transmited to a server, because there is no server supporting this application. The main purpose of this tool is indeed to illustrate how serverless statistical proceedures, particulalry data wrangling, 
+    can migrate to where the data is without exposing the source data. </p>
 
  <!-- Risk result------>
 
