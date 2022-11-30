@@ -12,14 +12,13 @@
   <link href="style.css" rel="stylesheet">
 
 
-  <h1>23andMe Risk Calculator</h1><br><br>
-  <p>A polygenic score (PGS) aggregates the effects of many genetic variants into a single number which predicts genetic predisposition for a phenotype. PGS are typically composed of hundreds-to-millions of genetic variants (usually SNPs) which are combined using a weighted sum of 
+  <h1>23andMe Risk Calculator</h1><br>
+  <p>A polygenic score (PGS) aggregates the effects of many genetic variants into a single number which predicts genetic predisposition for a phenotype. 
+    PGS are typically composed of hundreds-to-millions of genetic variants (usually SNPs) which are combined using a weighted sum of 
     allele dosages multiplied by their corresponding effect sizes, as estimated from a relevant genome-wide association study (GWAS). Read more 
     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612115/#:~:text=In%20the%20standard%20approach%20%5B5,powerful%20GWAS%20on%20the%20phenotype">here.</a>
   </p><br>
-  <b>
-    Application workflow for calculating risk:
-  </b>
+  <b>Workflow for calculating risk:</b>
   <li>Retrieves scoring file from 
     <a href="https://www.pgscatalog.org/rest/">PGS catalog</a>
   </li>  
@@ -30,7 +29,6 @@
 
 
 <body>
-
   <!-- PGS scores------->
   <h2>PGS Risk Scores</h2>
   <input id="pgsInput" type="text" value="PGS000001" >
@@ -44,19 +42,21 @@
   <textarea id="genomArea" class="content-target" style="width:100%;height:10em;font-size:small"></textarea>
   <br><br>
 
-  <p class="info"> All computation takes place in this browser session. No data is transmited to a server, because there is no server supporting this application. The main purpose of this tool is indeed to illustrate how serverless statistical proceedures, particulalry data wrangling, 
+   <!-- Risk result------>
+   <h2>Risk results</h2>
+  <div id = resDiv style ="color: red; border-width:2px; 
+  border-style:solid; border-color:#FF0000; padding: 0.7em;">Please load genomic file...</div>
+  <br>
+
+<div id = endDiv>
+  <p class="info" style="font-size:10px;"> All computation takes place in this browser session. No data is transmited to a server, because there is no server supporting this application. The main purpose of this tool is indeed to illustrate how serverless statistical proceedures, particulalry data wrangling, 
     can migrate to where the data is without exposing the source data. </p>
-
- <!-- Risk result------>
-
-
-
-
+</div>
   <script src="https://episphere.github.io/pgs/pgs.js"></script>
   <script src="main.js"></script>
   <script src="risk.js"></script>
 
-
 </body>
+
 
 </html>

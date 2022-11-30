@@ -16,14 +16,16 @@ function placeFileContent(target, file) {
         risk.genomData = genomData
         risk.genomDataArray = genomDataArray
         risk.results = riskCalc()
-        if (!document.getElementById("resultDiv")){
-            resDiv= document.createElement("div")
-            resDiv.id = "resultDiv"
-            document.body.appendChild(resDiv)
-        }
-        resDiv.innerHTML = "<h2>Risk results</h2>"
+        // if (!document.getElementById("resultDiv")){
+        //     resDiv= document.createElement("div")
+        //     resDiv.id = "resultDiv"
+        //     document.body.insertBefore(resDiv, endDiv)
+        // }
+        //resDiv.innerHTML = "<h2>Risk results</h2>"
         //resDiv.innerHTML += `<p>results: ${genomDataArray.length}</p>`
-        resDiv.innerHTML += `<p>results: ${risk.results}</p>`
+        resDiv.style.color = "blue"
+        resDiv.style.borderColor = "green"
+        resDiv.innerHTML = `<p>results: ${risk.results}</p>`
     }).catch(error => console.log(error))
 }
 function readFileContent(file) {
