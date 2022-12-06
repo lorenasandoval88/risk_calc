@@ -1,7 +1,7 @@
 getVar = (data,col_idx)=>{
     var arr = []
     data.forEach((row, index)=> {(arr).push(data[index][col_idx])})
-    return arr.slice(1)
+    return arr//.slice(1,-1)
   }
 getVar2 = ()=>{
     risk.pgs_rsids = getVar((risk.pgsDataArray),0)
@@ -13,7 +13,7 @@ riskCalc = function() {
     getVar2()
     indexArr = []
     riskArr = []
-    risk.pgs_rsids.forEach((element,idx) => {
+    risk.pgs_rsids.forEach((element,pgs_idx) => { // skip first row column names (ie rsid)
         //console.log(element)
         //console.log(risk.genom_rsids[idx])
 
@@ -22,19 +22,39 @@ riskCalc = function() {
                     if (data_idx!=-1){
                       indexArr.push(data_idx);
 
-                      var effect_allele = risk.pgsDataArray[idx][2]
+                      var effect_allele = risk.pgsDataArray[pgs_idx][2]
                       effect_allele_homozyg = effect_allele+effect_allele
                       data_alleles = risk.genomDataArray[data_idx][3]
-                      //console.log(effect_allele);
+                      console.log("effect_allele",effect_allele);
+                      console.log("data_alleles",data_alleles)
 
-                      if(effect_allele_homozyg==data_alleles){
-                        //console.log("alleles match!", effect_allele_homozyg, "at ", risk.genomDataArray[idx][0])
-                                  //console.log("pgs row:",risk.genomDataArray[idx]); 
-                                  //console.log("23me row:",risk.genomDataArray[data_idx]); 
-                                  //console.log("pgs beta *2:",(risk.genomDataArray[idx][4])*2);
-                                  riskArr.push((risk.pgsDataArray[idx][4])*2)
+                      // find allele matches then seperatte homo v hetero matches
+                      results = data_alleles.match(RegExp(effect_allele,'g'))
+                      console.log("results",results)
+                      //console.log("results length",results.length)
+
+                      console.log("data_idx",data_idx)
+                      console.log("pgs_idx",pgs_idx)
+
+                      console.log("risk.genom_rsids[data_idx]",risk.genom_rsids[data_idx])
+                      console.log("risk.pgsDataArray[pgs_idx][4]",risk.pgsDataArray[pgs_idx][4])
+
+                      console.log("element",element)
+                      if(results!=null){
+                        if( results.length==2){
+                          riskArr.push((risk.pgsDataArray[pgs_idx][4])*2)
                           }
+                        else if(results.length==1){
+                            riskArr.push((risk.pgsDataArray[pgs_idx][4])*1)
+                        }
+                      }else{
+                        riskArr.push((risk.pgsDataArray[pgs_idx][4])*0)
+                        console.log("no match!",0)
+                      }
+                        // if(results.length==1){
+                        // riskArr.push((risk.pgsDataArray[pgs_idx][4])*1)
+                        // }
                    }
-                 })  
+                 })
   return math.sum(riskArr)
 }
