@@ -13,17 +13,20 @@
 
 
   <h1>23andMe Risk Calculator</h1><br>
-  <p>A polygenic score (PGS) aggregates the effects of many genetic variants into a single number which predicts genetic predisposition for a phenotype. 
-    PGS are typically composed of hundreds-to-millions of genetic variants (usually SNPs) which are combined using a weighted sum of 
-    allele dosages multiplied by their corresponding effect sizes, as estimated from a relevant genome-wide association study (GWAS). Read more 
+  <p>A polygenic risk score estimates the genetic risk of an individual for some disease or trait, calculated by aggregating the effect of many common variants associated with the condition. Read more 
     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612115/#:~:text=In%20the%20standard%20approach%20%5B5,powerful%20GWAS%20on%20the%20phenotype">here.</a>
-  </p><br>
+  </p>
+  <img src="prs2.png" alt="PRS equation" width="300" height="80"/><br>
+  <li>beta = Weights (example is B as the per allele log odds ratio for the minor allele</li>
+  <li>k = Allele dosage for the SNP (0,1, or 2</li>
+  <li>n = number of SNPS</li><br>
+
   <b>Workflow for calculating risk:</b>
-  <li>Retrieves scoring file from 
+  <li>Retrieve scoring file from 
     <a href="https://www.pgscatalog.org/rest/">PGS catalog</a>
   </li>  
-  <li>Retrieves genotype from 23 and me raw data file</li>
-  <li>Matches scoring file variants and calculate scores</li>
+  <li>Retrieve genotype from 23 and me raw data file</li>
+  <li>Match scoring file variants and calculate scores</li>
   <br>
 </head>
 
