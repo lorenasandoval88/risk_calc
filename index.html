@@ -16,10 +16,11 @@
   <p>A polygenic risk score estimates the genetic risk of an individual for some disease or trait, calculated by aggregating the effect of many common variants associated with the condition. Read more 
     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612115/#:~:text=In%20the%20standard%20approach%20%5B5,powerful%20GWAS%20on%20the%20phenotype">here.</a>
   </p>
+  <b>The basic equation for the PRS of an individual i is:</b><br>
   <img src="prs2.png" alt="PRS equation" width="300" height="80"/><br>
-  <li>beta = Weights (example is B as the per allele log odds ratio for the minor allele</li>
-  <li>k = Allele dosage for the SNP (0,1, or 2</li>
-  <li>n = number of SNPS</li><br>
+  <li>beta = Weights (example is B as the per allele log odds ratio for the minor allele)</li>
+  <li>k = Allele dosage for the SNP (0,1, or 2)</li>
+  <li>m = number of SNPS</li><br>
 
   <b>Workflow for calculating risk:</b>
   <li>Retrieve scoring file from 
