@@ -1,0 +1,10 @@
+track changes:
+    - All page content shoud be placed inside <body> tag. The header only contains metatags and scripts/style files loading. I moved a portion of your description about PRS calculation to the body section.
+    - Separate the functions according to the scope and document their purpose
+    - Declare variables with names that help user to understand what they mean
+    - Removal of style declaration directly on the html tags
+    - Added function to retrieve all the traits with respective EFO ids
+    - User may search for the desired trait by typing in the select input
+    - Added function to retrieve PGS id from the selected trait
+    - Added support to AncestryDNA file and treatment on file loading to check type
+    
