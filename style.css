@@ -14,6 +14,9 @@ display: table;
 margin: left;
 }
 
+#pgsInput{
+    display: none;
+}
 
 #pgsDiv {
   clear: both;
@@ -22,6 +25,38 @@ margin: left;
   border-left: 0px;
   border-right: 0px;
   margin-left:-10px;
+}
+
+#pgsArea{
+    width: 100%;
+    color: lime;
+    background-color: black;
+    height: 20em;
+    font-size: small;
+    margin-top: 10px;
+}
+
+#genomArea{
+    width: 100%;
+    height: 10em;
+    font-size: small;
+    margin-top: 10px;
+}
+
+#resDiv{
+    border-width: 2px; 
+    border-style: solid; 
+    padding: 0.7em;
+    
+}
+.result-ok{
+    color: blue; 
+    border-color: green; 
+    
+}
+.result-empty{
+    color: red; 
+    border-color: #FF0000; 
 }
 
 p {
