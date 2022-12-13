@@ -1,11 +1,14 @@
-getVar = (data,col_idx)=>{
+getColumn = (data,colName)=>{
     var arr = []
-    data.forEach((row, index)=> {(arr).push(data[index][col_idx])})
-    return arr//.slice(1,-1)
+    idx = data[0].indexOf(colName)
+    pgsData = data.slice(1)
+    pgsData.forEach((row, index)=> {(arr).push(pgsData[index][idx])})
+    var array = arr
+    return array
   }
 getVar2 = ()=>{
-    risk.pgs_rsids = getVar((risk.pgsDataArray),0)
-    risk.genom_rsids = getVar(risk.genomDataArray,0)
+    risk.pgs_rsids = getColumn((risk.pgsDataArray),'hm_rsID')
+    risk.genom_rsids = getColumn(risk.genomDataArray,'hm_rsID')
 }
 // calculating risk from 23 and me----------------------
 

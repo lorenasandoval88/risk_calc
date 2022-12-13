@@ -10,8 +10,10 @@ function getFile(event, text) {
 }
 function placeFileContent(target, file) {
     readFileContent(file).then(content => {
-        
+        risk.genomData = content
         risk.genomDataArray = formatData(content)
+        var genomeColNames = ["hm_rsID","hm_chr","hm_pos","genotype"]
+        risk.genomDataArray.unshift(genomeColNames)
         target.innerHTML = content.slice(0,10000) //display 23 and me lines on page
         risk.results = riskCalc() // calculate risk
 
@@ -52,8 +54,8 @@ const getPGSdata2 = async () => {
     getPGSdata().then(pgsData => {
 document.getElementById("pgsArea").innerHTML = pgsData;
 risk.pgsData = pgsData
-risk.pgsDataArray = formatData(pgsData)
-risk.pgsDataArray = risk.pgsDataArray.slice(1)
+risk.pgsDataArray = formatData(pgsData) // define pgs data array here
+//risk.pgsDataArray = risk.pgsDataArray.slice(1)
 risk.pgsDataArray.pop()
 var pgsTrait = risk.pgsData.substring( // pgs disease from metadata
     risk.pgsData.indexOf("#trait_reported=") + 16, 
