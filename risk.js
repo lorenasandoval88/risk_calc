@@ -8,6 +8,10 @@ getColumn = (data,colName)=>{
   }
 getVar2 = ()=>{
     risk.pgs_rsids = getColumn((risk.pgsDataArray),'hm_rsID')
+    risk.pgs_or = getColumn((risk.pgsDataArray),'OR')
+    risk.pgs_or.forEach(function(item, i) {
+      risk.pgs_or[i] = Number(item);
+   });
     risk.genom_rsids = getColumn(risk.genomDataArray,'hm_rsID')
 }
 // calculating risk from 23 and me----------------------
@@ -52,4 +56,100 @@ riskCalc = function() {
 
                  })
   return math.sum(riskArr)
+}
+
+country = ['rs132390', 'rs6001930', 'rs4245739', 'rs6678914', 'rs12710696'];//risk.pgs_rsids;
+
+
+var votingPop = [2,3,4,5,6];//risk.pgs_or;
+
+var regVoters = [3,4,5,6,7];//risk.pgs_or;
+
+var trace1 = {
+  type: 'scatter',
+  x: votingPop,
+  y: country,
+  mode: 'markers',
+  name: 'legend1',
+  marker: {
+    color: 'rgba(156, 165, 196, 0.95)',
+    line: {
+      color: 'rgba(156, 165, 196, 1.0)',
+      width: 1,
+    },
+    symbol: 'circle',
+    size: 16
+  }
+};
+
+var trace2 = {
+  x: regVoters,
+  y: country,
+  mode: 'markers',
+  name: 'legend2',
+  marker: {
+    color: 'rgba(204, 204, 204, 0.95)',
+    line: {
+      color: 'rgba(217, 217, 217, 1.0)',
+      width: 1,
+    },
+    symbol: 'circle',
+    size: 16
+  }
+};
+// chart---------------------------------------------------------
+const myPlot = async () => {
+var data = [trace1, trace2];
+risk.pgsDataArray.pop()
+
+var pgsTrait = risk.pgsData.substring( // pgs disease from metadata
+    risk.pgsData.indexOf("#trait_reported=") + 16, 
+    risk.pgsData.lastIndexOf("#trait_mapped")
+);
+var pgsVariants = risk.pgsData.substring(  // # of pgs variants from metadata
+    risk.pgsData.indexOf("#variants_number=") + 17, 
+    risk.pgsData.lastIndexOf("#weight_type")
+);
+var layout = {
+  title: `${pgsVariants} ${pgsTrait} variants`,
+  xaxis: {
+    showgrid: false,
+    showline: true,
+    linecolor: 'rgb(102, 102, 102)',
+    titlefont: {
+      font: {
+        color: 'rgb(204, 204, 204)'
+      }
+    },
+    tickfont: {
+      font: {
+        color: 'rgb(102, 102, 102)'
+      }
+    },
+    autotick: false,
+    dtick: 10,
+    ticks: 'outside',
+    tickcolor: 'rgb(102, 102, 102)'
+  },
+  margin: {
+    l: 140,
+    r: 40,
+    b: 50,
+    t: 80
+  },
+  legend: {
+    font: {
+      size: 10,
+    },
+    yanchor: 'middle',
+    xanchor: 'right'
+  },
+  width: 600,
+  height: 600,
+  paper_bgcolor: 'rgb(254, 247, 234)',
+  plot_bgcolor: 'rgb(254, 247, 234)',
+  hovermode: 'closest'
+};
+
+Plotly.newPlot('chartDiv', data, layout)
 }

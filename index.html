@@ -9,6 +9,7 @@
 
   <script src="https://episphere.github.io/epibox/epibox.js"></script>
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+  <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
   <link href="style.css" rel="stylesheet">
 
 
@@ -43,7 +44,7 @@
   
   <!-- Genomic data----->
   <h2>Genomic Data</h2>
-  <input type="file" id="input-file" onchange="getFile(event, 'genomArea')">
+  <input type="file" id="input-file" onchange="getFile(event, 'genomArea');myPlot()">
   <textarea id="genomArea" class="content-target" style="width:100%;height:10em;font-size:small"></textarea>
   <br><br>
 
@@ -53,6 +54,11 @@
   <div id = resDiv style ="color: red; border-width:2px; 
   border-style:solid; border-color:#FF0000; padding: 0.7em;">Please load genomic file...</div>
   <br>
+
+   <!-- Risk chart------>
+  <div id = chartDiv></div>
+
+
 
 <div id = endDiv>
   <p class="info" style="font-size:10px;"> All computation takes place in this browser session. No data is transmited to a server, because there is no server supporting this application. The main purpose of this tool is indeed to illustrate how serverless statistical proceedures, particulalry data wrangling, 
