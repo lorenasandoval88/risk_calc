@@ -83,7 +83,7 @@ var pgsVariants = risk.pgsData.substring(  // # of pgs variants from metadata
     risk.pgsData.lastIndexOf("#weight_type")
 );
 var layout = {
-  title: `${pgsTrait}variants`,
+  title: `Odds Ratios for PGS ${pgsTrait}Variants`,
   xaxis: {
     showgrid: false,
     showline: true,
