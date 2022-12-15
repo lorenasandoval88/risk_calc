@@ -14,6 +14,8 @@ function placeFileContent(target, file) {
         risk.genomDataArray = formatData(content)
         var genomeColNames = ["hm_rsID","hm_chr","hm_pos","genotype"]
         risk.genomDataArray.unshift(genomeColNames)
+        risk.genom_rsids = getColumn(risk.genomDataArray,'hm_rsID')
+
         target.innerHTML = content.slice(0,10000) //display 23 and me lines on page
         risk.results = riskCalc() // calculate risk
 
@@ -33,6 +35,15 @@ function readFileContent(file) {
 }
 
 // Get PGS data from Rest API--------------
+getColumn = (data,colName)=>{
+    var arr = []
+    idx = data[0].indexOf(colName)
+    pgsData = data.slice(1)
+    pgsData.forEach((row, index)=> {(arr).push(pgsData[index][idx])})
+    var array = arr
+    return array
+  }
+
 formatData = ((dataArray) => {
     dataArray = dataArray.split(/[\n\r]+/).filter(r=>r[0]!='#').map(r=>r.split(/\t/));
     return dataArray
@@ -55,8 +66,14 @@ const getPGSdata2 = async () => {
 document.getElementById("pgsArea").innerHTML = pgsData;
 risk.pgsData = pgsData
 risk.pgsDataArray = formatData(pgsData) // define pgs data array here
-//risk.pgsDataArray = risk.pgsDataArray.slice(1)
 risk.pgsDataArray.pop()
+
+risk.pgs_rsids = getColumn((risk.pgsDataArray),'hm_rsID')
+risk.pgs_or = getColumn((risk.pgsDataArray),'OR')
+risk.pgs_or.forEach(function(item, i) {
+  risk.pgs_or[i] = Number(item);
+});
+//risk.pgsDataArray = risk.pgsDataArray.slice(1)
 var pgsTrait = risk.pgsData.substring( // pgs disease from metadata
     risk.pgsData.indexOf("#trait_reported=") + 16, 
     risk.pgsData.lastIndexOf("#trait_mapped")
@@ -67,6 +84,6 @@ var pgsVariants = risk.pgsData.substring(  // # of pgs variants from metadata
 );
 pgsFileInfo.innerHTML = `${pgsVariants} ${pgsTrait} variants`
 });
-}
 
+}
 getPGSdata2() // should I call this function here to display scores at loading the page?

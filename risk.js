@@ -1,23 +1,9 @@
-getColumn = (data,colName)=>{
-    var arr = []
-    idx = data[0].indexOf(colName)
-    pgsData = data.slice(1)
-    pgsData.forEach((row, index)=> {(arr).push(pgsData[index][idx])})
-    var array = arr
-    return array
-  }
-getVar2 = ()=>{
-    risk.pgs_rsids = getColumn((risk.pgsDataArray),'hm_rsID')
-    risk.pgs_or = getColumn((risk.pgsDataArray),'OR')
-    risk.pgs_or.forEach(function(item, i) {
-      risk.pgs_or[i] = Number(item);
-   });
-    risk.genom_rsids = getColumn(risk.genomDataArray,'hm_rsID')
-}
+  
+
 // calculating risk from 23 and me----------------------
 
 riskCalc = function() {
-    getVar2()
+
     indexArr = []
     riskArr = []
     count = 1
@@ -31,9 +17,7 @@ riskCalc = function() {
                       var effect_allele = risk.pgsDataArray[pgs_idx][2]
                       effect_allele_homozyg = effect_allele+effect_allele
                       data_alleles = risk.genomDataArray[data_idx][3]
-                      // console.log("effect_allele",effect_allele);
-                      // console.log("data_alleles",data_alleles)
-
+            
                       // find allele matches then seperatte homo v hetero matches
                       results = data_alleles.match(RegExp(effect_allele,'g'))
 
@@ -48,59 +32,47 @@ riskCalc = function() {
                         }
                       }else{
                         riskArr.push(0)
-                        console.log("no match!",0)
                         count = count+1
                       }
                    }
-                   variantMatches.innerHTML = `${riskArr.length+1} PGS variants found in 23andMe file`
+                   variantMatches.innerHTML = `${riskArr.length} PGS variants found in 23andMe file`
 
                  })
   return math.sum(riskArr)
 }
 
-country = ['rs132390', 'rs6001930', 'rs4245739', 'rs6678914', 'rs12710696'];//risk.pgs_rsids;
-
-
-var votingPop = [2,3,4,5,6];//risk.pgs_or;
-
-var regVoters = [3,4,5,6,7];//risk.pgs_or;
-
-var trace1 = {
-  type: 'scatter',
-  x: votingPop,
-  y: country,
-  mode: 'markers',
-  name: 'legend1',
-  marker: {
-    color: 'rgba(156, 165, 196, 0.95)',
-    line: {
-      color: 'rgba(156, 165, 196, 1.0)',
-      width: 1,
-    },
-    symbol: 'circle',
-    size: 16
-  }
-};
-
-var trace2 = {
-  x: regVoters,
-  y: country,
-  mode: 'markers',
-  name: 'legend2',
-  marker: {
-    color: 'rgba(204, 204, 204, 0.95)',
-    line: {
-      color: 'rgba(217, 217, 217, 1.0)',
-      width: 1,
-    },
-    symbol: 'circle',
-    size: 16
-  }
-};
 // chart---------------------------------------------------------
 const myPlot = async () => {
-var data = [trace1, trace2];
-risk.pgsDataArray.pop()
+
+  // sort odds ratio
+  oddsRatio = {};
+  for( var i=0,n=risk.pgs_or.length; i<n; i++){
+    oddsRatio[risk.pgs_or[i]] = risk.pgs_rsids[i];
+  }
+  oddsRatio2 = {};
+  for( var key in keys=Object.keys(oddsRatio).sort() ){
+    var prop = keys[key];
+    oddsRatio2[prop]= oddsRatio[prop];
+  }
+
+  var trace1 = {
+    type: 'scatter',
+    x: Object.keys(oddsRatio2),// odds ratios
+    y: Object.values(oddsRatio2),// rsids
+    mode: 'markers',
+    name: 'legend1',
+    marker: {
+      color: 'rgba(156, 165, 196, 0.95)',
+      line: {
+        color: 'rgba(156, 165, 196, 1.0)',
+        width: 1,
+      },
+      symbol: 'circle',
+      size: 5
+    }
+  };
+var data = [trace1];
+//risk.pgsDataArray.pop()
 
 var pgsTrait = risk.pgsData.substring( // pgs disease from metadata
     risk.pgsData.indexOf("#trait_reported=") + 16, 
@@ -111,7 +83,7 @@ var pgsVariants = risk.pgsData.substring(  // # of pgs variants from metadata
     risk.pgsData.lastIndexOf("#weight_type")
 );
 var layout = {
-  title: `${pgsVariants} ${pgsTrait} variants`,
+  title: `${pgsTrait}variants`,
   xaxis: {
     showgrid: false,
     showline: true,
@@ -126,7 +98,7 @@ var layout = {
         color: 'rgb(102, 102, 102)'
       }
     },
-    autotick: false,
+    autotick: true,
     dtick: 10,
     ticks: 'outside',
     tickcolor: 'rgb(102, 102, 102)'
@@ -135,7 +107,7 @@ var layout = {
     l: 140,
     r: 40,
     b: 50,
-    t: 80
+    t: 50
   },
   legend: {
     font: {
@@ -144,6 +116,17 @@ var layout = {
     yanchor: 'middle',
     xanchor: 'right'
   },
+  shapes:[{
+    type: 'line',
+    x0: 1,
+    y0: 0,
+    x1: 1,
+    y1: Object.keys(oddsRatio2).length,
+    line: {
+      color: 'grey',
+      width: 1.5,
+      dash: 'dot'
+    }}],
   width: 600,
   height: 600,
   paper_bgcolor: 'rgb(254, 247, 234)',
