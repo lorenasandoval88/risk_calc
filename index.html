@@ -35,19 +35,19 @@
 
 <body>
   <!-- PGS scores------->
-  <h2>PGS Risk Scores</h2>
+  <h2>PGS Risk Scores ID</h2>
   <input id="pgsInput" type="text" value="PGS000001" >
   <p id = "pgsFileInfo"></p>
   <button onclick="getPGSdata(), getPGSdata2()">update pgs scores</button>
-  <button onclick="myPlot()">plot scores</button>
+  <button id = "pgsbutton" onclick="myPlot()">plot scores</button>
 
   <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
   <!-- PGS chart------>
-  <div id = chartDiv></div>
+  <div id = pgsDiv></div>
 
   <!-- Genomic data----->
-  <h2>Genomic Data</h2>
+  <h2>23andMe raw data file</h2>
   <input type="file" id="input-file" onchange="getFile(event, 'genomArea')">
   <textarea id="genomArea" class="content-target" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>

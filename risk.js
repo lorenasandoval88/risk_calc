@@ -141,9 +141,21 @@ var layout = {
   hovermode: 'closest'
 };
 
-Plotly.newPlot('chartDiv', data, layout)
+Plotly.newPlot('pgsDiv', data, layout)
 }
 
+// hide pgs plot
+// var pgsbutton = document.getElementById('pgsbutton'); // Assumes element with id='button'
+
+// pgsbutton.onclick = function() {
+//     var div = document.getElementById('pgsDiv');
+//     if (div.style.display !== 'none') {
+//         div.style.display = 'none';
+//     }
+//     else {
+//         div.style.display = 'block';
+//     }
+// };
 // 23andMe beta plot-------------------------------------
 
 // beta = {};
