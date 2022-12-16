@@ -44,17 +44,34 @@ riskCalc = function() {
 // chart---------------------------------------------------------
 const myPlot = async () => {
 
-  // sort odds ratio
-  oddsRatio = {};
-  for( var i=0,n=risk.pgs_or.length; i<n; i++){
+  // sort odds ratio to display as > or < 1 in dot plot
+  // some rsids are only the position (use chr and position)
+  if (risk.pgs_rsids[1].match("rs")==null && risk.pgs_rsids[1].length>0){
+    oddsRatio = {};
+    for( var i=0,n=risk.pgs_pos.length; i<n; i++){
+      oddsRatio[risk.pgs_or[i]] = "chr_"+risk.pgs_chr[i]+"_"+risk.pgs_pos[i];
+    }
+  // some rsids are not included in the pgs (use chr and position)
+  } else if (risk.pgs_rsids[1]=='' && risk.pgs_rsids[1].length==0){
+    oddsRatio = {};
+    for( var i=0,n=risk.pgs_pos.length; i<n; i++){
+      oddsRatio[risk.pgs_b[i]] = "chr_"+risk.pgs_chr[i]+"_"+risk.pgs_pos[i];
+    console.log(risk.pgs_b[i])
+    }
+  // Here, rsids are included
+  } else {
+   oddsRatio = {};
+   for( var i=0,n=risk.pgs_or.length; i<n; i++){
     oddsRatio[risk.pgs_or[i]] = risk.pgs_rsids[i];
-  }
+  }}
+
   oddsRatio2 = {};
   for( var key in keys=Object.keys(oddsRatio).sort() ){
     var prop = keys[key];
     oddsRatio2[prop]= oddsRatio[prop];
-  }
 
+}
+  
   var trace1 = {
     type: 'scatter',
     x: Object.keys(oddsRatio2),// odds ratios

@@ -13,14 +13,14 @@
   <link href="style.css" rel="stylesheet">
 
 
-  <h1>23andMe Risk Calculator</h1><br>
+  <h1>23andMe Risk Calculator</h1>
   <p>A polygenic risk score estimates the genetic risk of an individual for some disease or trait, calculated by aggregating the effect of many common variants associated with the condition. Read more 
     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612115/#:~:text=In%20the%20standard%20approach%20%5B5,powerful%20GWAS%20on%20the%20phenotype">here.</a>
   </p>
   <b>The basic equation for the PRS of an individual i is:</b><br>
-  <img src="prs2.png" alt="PRS equation" width="300" height="80"/><br>
-  <li>beta = Weights (example is B as the per allele log odds ratio for the minor allele)</li>
-  <li>k = Allele dosage for the SNP (0,1, or 2)</li>
+  <img src="prs2.png" alt="PRS equation" width="280" height="70"/><br>
+  <li>beta = weights (example is B as the per allele log odds ratio for the minor allele)</li>
+  <li>k = allele dosage for the SNP (0,1, or 2)</li>
   <li>m = number of SNPS</li><br>
 
   <b>Workflow for calculating risk:</b>
@@ -38,14 +38,16 @@
   <h2>PGS Risk Scores</h2>
   <input id="pgsInput" type="text" value="PGS000001" >
   <p id = "pgsFileInfo"></p>
-  <button onclick="getPGSdata(), getPGSdata2(), getVar2()">enter</button>
-  <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:20em;font-size:small"></textarea>
+  <button onclick="getPGSdata(), getPGSdata2(), myPlot()">enter</button>
+  <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
-  
+  <!-- PGS chart------>
+  <div id = chartDiv></div>
+
   <!-- Genomic data----->
   <h2>Genomic Data</h2>
-  <input type="file" id="input-file" onchange="getFile(event, 'genomArea');myPlot()">
-  <textarea id="genomArea" class="content-target" style="width:100%;height:10em;font-size:small"></textarea>
+  <input type="file" id="input-file" onchange="getFile(event, 'genomArea')">
+  <textarea id="genomArea" class="content-target" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
 
    <!-- Risk result------>
@@ -56,7 +58,7 @@
   <br>
 
    <!-- Risk chart------>
-  <div id = chartDiv></div>
+  <div id = riskDiv></div>
 
 
 

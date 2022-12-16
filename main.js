@@ -70,6 +70,9 @@ risk.pgsDataArray.pop()
 
 risk.pgs_rsids = getColumn((risk.pgsDataArray),'hm_rsID')
 risk.pgs_or = getColumn((risk.pgsDataArray),'OR')
+risk.pgs_b = getColumn((risk.pgsDataArray),'effect_weight')
+risk.pgs_pos = getColumn((risk.pgsDataArray),'hm_pos')
+risk.pgs_chr = getColumn((risk.pgsDataArray),'hm_chr')
 risk.pgs_or.forEach(function(item, i) {
   risk.pgs_or[i] = Number(item);
 });
