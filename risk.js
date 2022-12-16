@@ -44,38 +44,32 @@ riskCalc = function() {
 // chart---------------------------------------------------------
 const myPlot = async () => {
 
-  // sort odds ratio to display as > or < 1 in dot plot
+  // display pgs scores as beta or odds ratio with rsids or chr and position on the x axis
   // some rsids are only the position (use chr and position)
+  oddsRatio = {};
   if (risk.pgs_rsids[1].match("rs")==null && risk.pgs_rsids[1].length>0){
-    oddsRatio = {};
-    for( var i=0,n=risk.pgs_pos.length; i<n; i++){
-      oddsRatio[risk.pgs_or[i]] = "chr_"+risk.pgs_chr[i]+"_"+risk.pgs_pos[i];
-    }
+    risk.pgs_or.forEach((or,i)=>{
+      oddsRatio["chr_"+risk.pgs_chr[i]+"_pos_"+risk.pgs_pos[i]] = or;
+    })
   // some rsids are not included in the pgs (use chr and position)
   } else if (risk.pgs_rsids[1]=='' && risk.pgs_rsids[1].length==0){
-    oddsRatio = {};
-    for( var i=0,n=risk.pgs_pos.length; i<n; i++){
-      oddsRatio[risk.pgs_b[i]] = "chr_"+risk.pgs_chr[i]+"_"+risk.pgs_pos[i];
-    console.log(risk.pgs_b[i])
-    }
-  // Here, rsids are included
+    risk.pgs_b.forEach((b,i)=>{
+      oddsRatio["chr_"+risk.pgs_chr[i]+"_pos_"+risk.pgs_pos[i]] = b;
+    })
+  // Here, rsids are available
   } else {
-   oddsRatio = {};
-   for( var i=0,n=risk.pgs_or.length; i<n; i++){
-    oddsRatio[risk.pgs_or[i]] = risk.pgs_rsids[i];
-  }}
-
-  oddsRatio2 = {};
-  for( var key in keys=Object.keys(oddsRatio).sort() ){
-    var prop = keys[key];
-    oddsRatio2[prop]= oddsRatio[prop];
-
-}
+   risk.pgs_or.forEach((or,i)=>{
+    oddsRatio[risk.pgs_rsids[i]] = or;
+  })}
+//sort or/beta object
+  oddsRatioSorted = Object.entries(oddsRatio)
+    .sort(([,a],[,b]) => a-b)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
   
   var trace1 = {
     type: 'scatter',
-    x: Object.keys(oddsRatio2),// odds ratios
-    y: Object.values(oddsRatio2),// rsids
+    x: Object.values(oddsRatioSorted),// odds ratios
+    y: Object.keys(oddsRatioSorted),// rsids
     mode: 'markers',
     name: 'legend1',
     marker: {
@@ -121,24 +115,20 @@ var layout = {
     tickcolor: 'rgb(102, 102, 102)'
   },
   margin: {
-    l: 140,
-    r: 40,
-    b: 50,
-    t: 50
+    l: 140,r: 40,b: 50,t: 50
   },
   legend: {
     font: {
       size: 10,
     },
-    yanchor: 'middle',
-    xanchor: 'right'
+    yanchor: 'middle',xanchor: 'right'
   },
   shapes:[{
     type: 'line',
     x0: 1,
     y0: 0,
     x1: 1,
-    y1: Object.keys(oddsRatio2).length,
+    y1: Object.values(oddsRatio).length,
     line: {
       color: 'grey',
       width: 1.5,
@@ -146,10 +136,17 @@ var layout = {
     }}],
   width: 600,
   height: 600,
-  paper_bgcolor: 'rgb(254, 247, 234)',
+  //paper_bgcolor: 'rgb(99,99,100)',
   plot_bgcolor: 'rgb(254, 247, 234)',
   hovermode: 'closest'
 };
 
 Plotly.newPlot('chartDiv', data, layout)
 }
+
+// 23andMe beta plot-------------------------------------
+
+// beta = {};
+// for( var i=0,n=risk.pgs_pos.length; i<n; i++){
+//   beta[risk.pgs_or[i]] = "chr_"+risk.pgs_chr[i]+"_"+risk.pgs_pos[i];
+// }
