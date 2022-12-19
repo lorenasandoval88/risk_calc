@@ -2,6 +2,8 @@
 
 // calculating risk from 23 and me----------------------
 
+//const { title } = require("process")
+
 riskCalc = function() {
 
     indexArr = []
@@ -54,7 +56,7 @@ const myPlot = async () => {
   // some rsids are not included in the pgs (use chr and position)
   } else if (risk.pgs_rsids[1]=='' && risk.pgs_rsids[1].length==0){
     risk.pgs_b.forEach((b,i)=>{
-      oddsRatio["chr_"+risk.pgs_chr[i]+"_pos_"+risk.pgs_pos[i]] = b;
+      oddsRatio["chr_"+risk.pgs_chr[i]+"_pos_"+risk.pgs_pos[i]] = math.exp(b);
     })
   // Here, rsids are available
   } else {
@@ -95,17 +97,20 @@ var pgsVariants = risk.pgsData.substring(  // # of pgs variants from metadata
 );
 var layout = {
   title: `Odds Ratios for PGS ${pgsTrait}Variants`,
+ 
   xaxis: {
     showgrid: false,
     showline: true,
     linecolor: 'rgb(102, 102, 102)',
     titlefont: {
       font: {
+        size: 10,
         color: 'rgb(204, 204, 204)'
       }
     },
     tickfont: {
       font: {
+        size: 10,
         color: 'rgb(102, 102, 102)'
       }
     },

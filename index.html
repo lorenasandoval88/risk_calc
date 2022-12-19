@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -39,12 +40,54 @@
   <input id="pgsInput" type="text" value="PGS000001" >
   <p id = "pgsFileInfo"></p>
   <button onclick="getPGSdata(), getPGSdata2()">update pgs scores</button>
-  <button id = "pgsbutton" onclick="myPlot()">plot scores</button>
+  <button   class="btn btn-primary btn__first" 
+  data-toggle="collapse"
+  data-target=".collapse.first"
+  data-text="Collapse" id = "pgsbutton" onclick="myPlot()">plot scores</button>
 
   <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
+
+
   <!-- PGS chart------>
-  <div id = pgsDiv></div>
+  <div class="block collapse first" id = pgsDiv></div>
+
+  <script>
+    // map our commands to the classList methods
+    const fnmap = {
+      'toggle': 'toggle',
+        'show': 'add',
+        'hide': 'remove'
+    };
+    const collapse = (selector, cmd) => {
+      const targets = Array.from(document.querySelectorAll(selector));
+      targets.forEach(target => {
+        target.classList[fnmap[cmd]]('show');
+      });
+    }
+    // Grab all the trigger elements on the page
+    const triggers = Array.from(document.querySelectorAll('[data-toggle="collapse"]'));
+    // Listen for click events, but only on our triggers
+    window.addEventListener('click', (ev) => {
+      const elm = ev.target;
+
+      if (triggers.includes(elm)) {
+        const selector = elm.getAttribute('data-target');
+        collapse(selector, 'toggle');
+      }
+    } );
+
+    document.getElementById("pgsbutton").addEventListener("click", (e) => {
+        let textContent = e.target.textContent;
+        if (textContent == "plot scores") {
+            e.target.textContent = "hide plot";
+         }
+         else {
+           e.target.textContent = "plot scores";
+
+         }
+     });
+      </script>
 
   <!-- Genomic data----->
   <h2>23andMe raw data file</h2>
