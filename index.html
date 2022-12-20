@@ -29,21 +29,18 @@
     <a href="https://www.pgscatalog.org/rest/">PGS catalog</a>
   </li>  
   <li>Retrieve genotype from 23 and me raw data file</li>
-  <li>Match scoring file variants and calculate scores</li>
-  <br>
+  <li>Match scoring file variants and calculate scores</li><br>
 </head>
-
 
 <body>
   <!-- PGS scores------->
   <h2>PGS Risk Scores ID</h2>
   <input id="pgsInput" type="text" value="PGS000001" >
   <p id = "pgsFileInfo"></p>
-  <button onclick="getPGSdata(), getPGSdata2()">update pgs scores</button>
-  <button   class="btn btn-primary btn__first" 
-  data-toggle="collapse"
-  data-target=".collapse.first"
-  data-text="Collapse" id = "pgsbutton" onclick="myPlot()">plot scores</button>
+  <button onclick="getPGSdata(), getPGSdata2()" id = "pgs_scores_button" class="btn btn-primary btn__first" 
+  data-toggle="collapse1" data-target=".collapse.first">update pgs scores</button>
+  <button class="btn btn-primary btn__first" data-toggle="collapse2" data-target=".collapse.first"
+  data-text="Collapse" id = "pgsbutton" onclick="myPlot()">plot PGS000001 scores</button>
 
   <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
@@ -51,43 +48,6 @@
 
   <!-- PGS chart------>
   <div class="block collapse first" id = pgsDiv></div>
-
-  <script>
-    // map our commands to the classList methods
-    const fnmap = {
-      'toggle': 'toggle',
-        'show': 'add',
-        'hide': 'remove'
-    };
-    const collapse = (selector, cmd) => {
-      const targets = Array.from(document.querySelectorAll(selector));
-      targets.forEach(target => {
-        target.classList[fnmap[cmd]]('show');
-      });
-    }
-    // Grab all the trigger elements on the page
-    const triggers = Array.from(document.querySelectorAll('[data-toggle="collapse"]'));
-    // Listen for click events, but only on our triggers
-    window.addEventListener('click', (ev) => {
-      const elm = ev.target;
-
-      if (triggers.includes(elm)) {
-        const selector = elm.getAttribute('data-target');
-        collapse(selector, 'toggle');
-      }
-    } );
-
-    document.getElementById("pgsbutton").addEventListener("click", (e) => {
-        let textContent = e.target.textContent;
-        if (textContent == "plot scores") {
-            e.target.textContent = "hide plot";
-         }
-         else {
-           e.target.textContent = "plot scores";
-
-         }
-     });
-      </script>
 
   <!-- Genomic data----->
   <h2>23andMe raw data file</h2>
@@ -114,6 +74,8 @@
   <script src="https://episphere.github.io/pgs/pgs.js"></script>
   <script src="main.js"></script>
   <script src="risk.js"></script>
+  <script src="plot.js"></script>
+
 
 </body>
 

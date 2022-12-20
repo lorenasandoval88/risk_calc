@@ -1,0 +1,59 @@
+// map our commands to the classList methods
+const fnmap = {
+  'toggle': 'toggle',
+    'show': 'add',
+    'hide': 'remove'
+};
+const collapse = (selector, cmd) => {
+  const targets = Array.from(document.querySelectorAll(selector));
+  targets.forEach(target => {
+    target.classList[fnmap[cmd]]('show');
+  });
+}
+
+// Grab all the trigger elements on the page
+const triggers = Array.from(document.querySelectorAll('[data-toggle="collapse2"]'));
+// Listen for click events, but only on our triggers
+window.addEventListener('click', (ev) => {
+  const elm = ev.target;
+
+  if (triggers.includes(elm)) {
+    const selector = elm.getAttribute('data-target');
+    collapse(selector, 'toggle');
+  }
+} );
+
+document.getElementById("pgsbutton").addEventListener("click", (e) => {
+    let textContent = e.target.textContent;
+    if (textContent == `plot ${pgsInput.value} scores`) {
+        e.target.textContent = `hide ${pgsInput.value} scores`;
+     }
+     else {
+       e.target.textContent = `plot ${pgsInput.value} scores`;
+
+     }
+ });
+
+//when scores are updated, plot button should reset----->
+// Grab all the trigger elements on the page
+const triggers2 = Array.from(document.querySelectorAll('[data-toggle="collapse1"]'));
+// Listen for click events, but only on our triggers
+window.addEventListener('click', (ev) => {
+  const elm = ev.target;
+
+  if (triggers2.includes(elm)) {
+    const selector = elm.getAttribute('data-target');
+    collapse(selector, 'hide');
+  }
+} );
+
+document.getElementById("pgs_scores_button").addEventListener("click", (e) => {
+    let textContent = document.getElementById("pgsbutton").innerHTML;
+    if (textContent == `hide ${pgsInput.value} scores`) {
+        document.getElementById("pgsbutton").innerHTML = `plot ${pgsInput.value} scores`;
+     }
+     else {
+        document.getElementById("pgsbutton").innerHTML = `plot ${pgsInput.value} scores`;
+
+     }
+ });
