@@ -40,7 +40,7 @@
   <button onclick="getPGSdata(), getPGSdata2()" id = "pgs_scores_button" class="btn btn-primary btn__first" 
   data-toggle="collapse1" data-target=".collapse.first">update pgs scores</button>
   <button class="btn btn-primary btn__first" data-toggle="collapse2" data-target=".collapse.first"
-  data-text="Collapse" id = "pgsbutton" onclick="myPlot()">plot PGS000001 scores</button>
+  data-text="Collapse" id = "pgsbutton" onclick="PGSplot()">plot PGS000001 scores</button>
 
   <textarea id="pgsArea" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
@@ -58,9 +58,8 @@
    <!-- Risk result------>
    <h2>Risk results</h2>
    <p id = "variantMatches"></p>
-  <div id = resDiv style ="color: red; border-width:2px; 
-  border-style:solid; border-color:#FF0000; padding: 0.7em;">Please load genomic file...</div>
-  <br>
+  <div id = resDiv style ="color: red; border-width:4px; 
+  border-style:solid; border-color:#FF0000; padding: 0.4em;">Please load genomic file...</div>
 
    <!-- Risk chart------>
   <div id = riskDiv></div>
@@ -75,7 +74,7 @@
   <script src="https://episphere.github.io/pgs/pgs.js"></script>
   <script src="main.js"></script>
   <script src="risk.js"></script>
-  <script src="plot.js"></script>
+  <script src="plotPGS.js"></script>
   <script src="plotRisk.js"></script>
 
 </body>

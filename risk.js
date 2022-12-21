@@ -6,45 +6,45 @@
 
 riskCalc = function() {
 
-    indexArr = []
     riskArr = []
-    count = 1
+    riskData = []
     risk.pgs_rsids.forEach((element,pgs_idx) => { // skip first row column names (ie rsid)
-
-                 //get the index of the 23and me rsids that are also in PGS
+      pgsDat = risk.pgsDataArray.slice(1) // remove first row with pgs colummn names
+      _23Data =  risk.genomDataArray.slice(1)
+      //get the index of the 23and me rsids that are also in PGS
                     var data_idx = risk.genom_rsids.indexOf(element)
                     if (data_idx!=-1){
-                      indexArr.push(data_idx);
-
-                      var effect_allele = risk.pgsDataArray[pgs_idx][2]
+                      var effect_allele = pgsDat[pgs_idx][2]
                       effect_allele_homozyg = effect_allele+effect_allele
-                      data_alleles = risk.genomDataArray[data_idx][3]
-            
+                      data_alleles = _23Data[data_idx][3]
+                      console.log(pgsDat[pgs_idx])
+                      console.log(_23Data[data_idx])
+
                       // find allele matches then seperatte homo v hetero matches
                       results = data_alleles.match(RegExp(effect_allele,'g'))
-
+                      console.log(results)
                       if(results!=null){
                         if( results.length==2){
-                          riskArr.push((risk.pgsDataArray[pgs_idx][4])*2)
-                          count = count+1
+                          riskArr.push((pgsDat[pgs_idx][4])*2)
+                          riskData.push(pgsDat[pgs_idx])
                           }
                         else if(results.length==1){
-                            riskArr.push((risk.pgsDataArray[pgs_idx][4])*1)
-                            count = count+1
+                            riskArr.push((pgsDat[pgs_idx][4])*1)
+                            riskData.push(pgsDat[pgs_idx])
                         }
                       }else{
                         riskArr.push(0)
-                        count = count+1
+                        riskData.push(pgsDat[pgs_idx])
                       }
                    }
                    variantMatches.innerHTML = `${riskArr.length} PGS variants found in 23andMe file`
 
                  })
-  return math.sum(riskArr)
+  return math.exp(math.sum(riskArr))
 }
 
 // chart---------------------------------------------------------
-const myPlot = async () => {
+const PGSplot = async () => {
 
   // display pgs scores as beta or odds ratio with rsids or chr and position on the x axis
   // some rsids are only the position (use chr and position)

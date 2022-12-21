@@ -21,7 +21,7 @@ function placeFileContent(target, file) {
 
         resDiv.style.color = "blue"
         resDiv.style.borderColor = "green"
-        resDiv.innerHTML = `<p>results: ${risk.results}</p>`
+        resDiv.innerText = Math.round((risk.results+ Number.EPSILON) * 100) / 100 // display risk
     }).catch(error => console.log(error))
 }
 function readFileContent(file) {
