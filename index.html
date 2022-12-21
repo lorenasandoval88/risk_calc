@@ -51,7 +51,7 @@
 
   <!-- Genomic data----->
   <h2>23andMe raw data file</h2>
-  <input type="file" id="input-file" onchange="getFile(event, 'genomArea')">
+  <input type="file" id="input-file" onchange="getFile(event, 'genomArea'),plotRisk()">
   <textarea id="genomArea" class="content-target" style="width:100%;color:lime;background-color:black;height:8em;font-size:small"></textarea>
   <br><br>
 
@@ -64,7 +64,8 @@
 
    <!-- Risk chart------>
   <div id = riskDiv></div>
-
+  <button class="btn btn-primary btn__second" data-toggle="collapse3" data-target=".collapse.second"
+  data-text="Collapse" id = "23button">plot relative risk</button><br><br>
 
 
 <div id = endDiv>
@@ -75,7 +76,7 @@
   <script src="main.js"></script>
   <script src="risk.js"></script>
   <script src="plot.js"></script>
-
+  <script src="plotRisk.js"></script>
 
 </body>
 

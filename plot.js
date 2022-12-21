@@ -36,6 +36,7 @@ document.getElementById("pgsbutton").addEventListener("click", (e) => {
 
 //when scores are updated, plot button should reset----->
 // Grab all the trigger elements on the page
+//https://medium.com/dailyjs/mimicking-bootstraps-collapse-with-vanilla-javascript-b3bb389040e7
 const triggers2 = Array.from(document.querySelectorAll('[data-toggle="collapse1"]'));
 // Listen for click events, but only on our triggers
 window.addEventListener('click', (ev) => {
