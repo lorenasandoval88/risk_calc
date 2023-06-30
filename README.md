@@ -14,3 +14,6 @@ https://www.illumina.com/content/dam/illumina/gcs/assembled-assets/marketing-lit
 
 Tutorial: a guide to performing polygenic risk score analyses
 https://pubmed.ncbi.nlm.nih.gov/32709988/
+
+API endpoints: 
+https://rest.ensembl.org/documentation/info
