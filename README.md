@@ -16,4 +16,9 @@ Tutorial: a guide to performing polygenic risk score analyses
 https://pubmed.ncbi.nlm.nih.gov/32709988/
 
 API endpoints: 
-https://rest.ensembl.org/documentation/info
+https://www.pgscatalog.org/score/
+https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/
+https://doi.org/
+https://rest.ensembl.org/variation/human/
+https://www.snpedia.com/index.php/
+https://myvariant.info/v1/variant/
